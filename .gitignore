@@ -1,3 +1,4 @@
 .DS_Store
 venv
 .vscode/settings.json
+fhir_data
