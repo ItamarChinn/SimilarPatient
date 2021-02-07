@@ -89,8 +89,11 @@ def find_patient_neighbours(patient_list):
             patient_list[first_patient_id].calculate_similarity(patient_list[second_patient_id])
 
 
-# PATIENT_DATA_PATH = config.FHIR_DATA_PATH
-#
-# patient_list = sample_patients(PATIENT_DATA_PATH)
-# find_patient_neighbours(patient_list)
+# TODO: Assume file will be called from command line with the first argument a list (or maybe string) of JSONs
+# TODO: List of 5 top most similar patient jsons with the similarity score
+
+PATIENT_DATA_PATH = config.FHIR_DATA_PATH
+
+patient_list = sample_patients(PATIENT_DATA_PATH)
+find_patient_neighbours(patient_list)
 
