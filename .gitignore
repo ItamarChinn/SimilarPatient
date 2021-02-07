@@ -2,3 +2,5 @@
 venv
 .vscode/settings.json
 fhir_data
+python_fhir
+.gitignore
