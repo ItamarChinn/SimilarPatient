@@ -1,4 +1,6 @@
 .DS_Store
 venv
-.vscode
-population
+.vscode/settings.json
+fhir_data
+python_fhir
+.gitignore
