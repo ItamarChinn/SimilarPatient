@@ -84,6 +84,7 @@ def find_patient_neighbours(patient_list):
         if i + 1 == num_patients:
             continue
 
+        # TODO: Change the sliced list to an if statement
         for second_patient_id in patient_ids[i+1:]:
             patient_list[first_patient_id].calculate_similarity(patient_list[second_patient_id])
 
