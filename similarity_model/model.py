@@ -1,6 +1,6 @@
 import os
 import numpy as np
-
+import argparse
 import json
 import fhirclient
 
@@ -92,8 +92,14 @@ def find_patient_neighbours(patient_list):
 # TODO: Assume file will be called from command line with the first argument a list (or maybe string) of JSONs
 # TODO: List of 5 top most similar patient jsons with the similarity score
 
-PATIENT_DATA_PATH = config.FHIR_DATA_PATH
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("FHIR_data", help="The FHIR JSON or JSONs string")
+    args = parser.parse_args()
+    print(args.FHIR_data)
 
-patient_list = sample_patients(PATIENT_DATA_PATH)
-find_patient_neighbours(patient_list)
+    PATIENT_DATA_PATH = config.FHIR_DATA_PATH
+
+    patient_list = sample_patients(PATIENT_DATA_PATH)
+    find_patient_neighbours(patient_list)
 
