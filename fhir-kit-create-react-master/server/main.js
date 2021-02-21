@@ -21,12 +21,6 @@ app.get('/api/patient', (req, res) => {
     // })
     fhirClient.request('Patient')
     .then((response) => {
-      // https://stackoverflow.com/questions/23450534/how-to-call-a-python-function-from-node-js
-      // const spawn = require("child_process").spawn;
-      // const pythonProcess = spawn('python',["model.py", response.entry]);
-      // pythonProcess.stdout.on('data', (data) => {
-      //   console.log(data.toString());
-      // });
 
       const patients = response.entry ? response.entry.map((obj) => {
         return {
@@ -36,6 +30,28 @@ app.get('/api/patient', (req, res) => {
           birthDate: obj.resource.birthDate
         }
       }) : [];
+
+      const patient_list = response.entry ? response.entry.map((obj) => {
+        return obj.resource
+      }) : [];
+
+      // https://stackoverflow.com/questions/23450534/how-to-call-a-python-function-from-node-js
+       const spawn = require("child_process").spawn;
+       const pythonProcess = spawn('python',["model.py", JSON.stringify(patient_list)]); // Successfully parses JSON objects as string for use as Python argument
+       /* Python process takes as input a string which is a list of Patient FHIR resource objects.
+       Next steps:
+       1. Python needs to be parse string into JSON resource objects
+       2. Second argument needs to be given to Python of which patient is being compared to
+       3. Python needs to return only the FHIR JSONS of the top 5 most similar patients
+       4. Front end needs ability to select patient for similar search
+       5. JS needs to parse python output into readable patient entries for front-end
+       6. Front-end needs to display patients ranked by similarity next to patient compared to
+            a. Highlight the similar features (future feature)
+       */
+       pythonProcess.stdout.on('data', (data) => {
+         console.log(data.toString());
+       });
+
 
       res.status(200).json(patients);
     });
